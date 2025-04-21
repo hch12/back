@@ -1,0 +1,17 @@
+server:
+  port: 9999
+
+# 数据库配置
+spring:
+  datasource:
+    driver-class-name: org.opengauss.Driver
+    url: jdbc:opengauss://119.8.33.155:15432/mydb?ssl=false
+    username: gaussdb
+    password: lhr@123XXT
+mybatis:
+  ## 映射xml
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # 配置日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
