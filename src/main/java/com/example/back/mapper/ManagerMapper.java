@@ -1,4 +1,8 @@
 package com.example.back.mapper;
 
-public interface ManagerMapper {
+import com.example.back.entity.Admin;
+import org.apache.ibatis.annotations.Param;
+
+public interface ManagerMapper{
+
 }
