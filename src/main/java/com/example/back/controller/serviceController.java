@@ -1,5 +1,6 @@
 package com.example.back.controller;
 
+import com.example.back.entity.ServiceDetail;
 import com.example.back.common.Result;
 import com.example.back.entity.Record;
 import com.example.back.entity.Service;
@@ -28,5 +29,17 @@ public class serviceController {
         List<Service> showList = new ArrayList<>(services.subList(begin, end));
         Record records = new Record(showList, services.size());
         return Result.success(records);
+    }
+
+    @GetMapping("/detail")
+    public Result getServiceDetailById(@RequestParam("id") Integer id) {
+        ServiceDetail serviceDetail = serviceService.getServiceDetailById(id);
+
+        if (serviceDetail == null) {
+            // 如果查询结果为 null，表示该 ID 的套餐不存在
+            return Result.error("未找到该套餐信息"); // 返回错误码和信息
+        }
+        // 返回查询到的 ServiceDetail 对象
+        return Result.success(serviceDetail);
     }
 }

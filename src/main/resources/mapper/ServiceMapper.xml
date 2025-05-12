@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.ServiceMapper">
+
+    <resultMap id="ServiceDetailResultMap" type="com.example.back.entity.ServiceDetail">
+        <!-- 主键映射，使用带引号的列名 -->
+        <id property="serviceID" column="serviceID"/>
+        <result property="serviceName" column="serviceName"/>
+
+        <association property="organization" javaType="com.example.back.entity.Organization">
+            <id property="organizationID" column="organizationID"/>
+            <result property="organizationName" column="org_organizationName"/>
+            <result property="city" column="city"/>
+            <result property="phone" column="phone"/>
+            <result property="workdays" column="workdays"/>
+        </association>
+
+        <collection property="indicators" ofType="com.example.back.entity.Indicator">
+            <id property="indicatorID" column="indicatorID"/>
+            <result property="indicatorName" column="indicatorName"/>
+            <result property="type" column="type"/>
+            <result property="dataType" column="dataType"/>
+        </collection>
+
+        <!-- 缺失字段 -->
+        <!-- <result property="price" column="price"/> -->
+        <!-- <result property="description" column="description"/> -->
+        <!-- <result property="duration" column="duration"/> -->
+
+    </resultMap>
+
+    <select id="selectServiceDetailById" resultMap="ServiceDetailResultMap">
+        SELECT
+        s."serviceID",
+        s."serviceName",
+        o."organizationID",
+        o."organizationName" AS org_organizationName,
+        o.city,
+        o.phone,
+        o.workdays,
+        i."indicatorID",
+        i."indicatorName",
+        i.type,
+        i."dataType"
+        <!-- 如果添加了 price, description, duration 到 service 表，在这里加入，例如: -->
+        <!-- s.price, s.description, s.duration -->
+        FROM
+        service s
+        JOIN
+        organization o ON s."organizationName" = o."organizationName"
+        LEFT JOIN
+        service_indicator si ON s."serviceID" = si."serviceID"
+        LEFT JOIN
+        indicator i ON si."indicatorID" = i."indicatorID"
+        WHERE
+        s."serviceID" = #{id}
+    </select>
+
+</mapper>

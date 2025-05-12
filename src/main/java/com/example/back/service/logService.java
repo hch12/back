@@ -1,6 +1,7 @@
 package com.example.back.service;
 
 import com.example.back.entity.Admin;
+import com.example.back.entity.Relative;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
