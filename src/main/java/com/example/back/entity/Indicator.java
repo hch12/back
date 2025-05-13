@@ -2,6 +2,7 @@ package com.example.back.entity;
 
 public class Indicator {
     private Integer id;
+    private Integer indicatorID;
     private String indicatorName;
     private String type;
     private Integer dataType;
@@ -13,6 +14,14 @@ public class Indicator {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getIndicatorID() {
+        return indicatorID;
+    }
+
+    public void setIndicatorID(Integer indicatorID) {
+        this.indicatorID = indicatorID;
     }
 
     public String getIndicatorName() {
