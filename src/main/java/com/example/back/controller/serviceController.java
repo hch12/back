@@ -29,4 +29,11 @@ public class serviceController {
         Record records = new Record(showList, services.size());
         return Result.success(records);
     }
+
+    @GetMapping("/suggest")
+    public Result suggest(@RequestParam String keyword, @RequestParam String orgName){
+        List<Service> services = serviceService.selectServiceBySearch(keyword, orgName);
+        Record records = new Record(services,services.size());
+        return Result.success(records);
+    }
 }

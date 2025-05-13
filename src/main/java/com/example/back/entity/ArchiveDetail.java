@@ -3,11 +3,16 @@ package com.example.back.entity;
 import java.util.List;
 
 public class ArchiveDetail {
-    private Archive archive;
+    private Archive archive= null;
     private List<Indicator> indicators;
     private List<String> uniqueNames;
     public ArchiveDetail(Archive archive,List<Indicator> indicators,List<String> uniqueNames){
         this.archive = archive;
+        this.indicators = indicators;
+        this.uniqueNames = uniqueNames;
+    }
+
+    public ArchiveDetail(List<Indicator> indicators,List<String> uniqueNames){
         this.indicators = indicators;
         this.uniqueNames = uniqueNames;
     }
