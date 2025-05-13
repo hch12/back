@@ -18,6 +18,9 @@ public class serviceServiceImpl implements serviceService{
     }
 
     @Override
+    public List<com.example.back.entity.Service> selectServiceBySearch(String keyword, String orgName){
+        return serviceMapper.selectServiceByOrg(keyword, orgName);
+    }
     public ServiceDetail getServiceDetailById(Integer id) {
         return serviceMapper.selectServiceDetailById(id);
     }

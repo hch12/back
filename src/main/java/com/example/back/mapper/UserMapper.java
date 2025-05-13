@@ -27,4 +27,7 @@ public interface UserMapper {
             "ORDER BY date ASC")
     List<IndicatorData> selectindicatorsTrend(@Param("ID") Integer ID, @Param("IndicatorId") Integer IndicatorId);
 
+    @Select("SELECT name, id FROM admin " +
+            "where id = #{userId} ")
+    Admin selectAdmin(Integer userId);
 }

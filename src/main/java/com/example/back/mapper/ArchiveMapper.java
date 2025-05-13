@@ -2,9 +2,12 @@ package com.example.back.mapper;
 
 import com.example.back.entity.Archive;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public interface ArchiveMapper {
@@ -40,4 +43,17 @@ public interface ArchiveMapper {
 
     @Delete("DELETE FROM archive where \"archiveID\" = #{id}")
     void deleteArchiveByID(Integer id);
+
+    @Insert("INSERT INTO archive (\"archiveID\", \"userID\", \"serviceID\", date) " +
+            "VALUES (DEFAULT, #{personId}, #{serviceId}, #{checkDate})")
+    void insertArchive(@Param("personId") Integer personId,
+                       @Param("serviceId") Integer serviceId,
+                       @Param("checkDate") Date checkDate);
+
+    @Select("select \"archiveID\" from archive\n " +
+            "where \"userID\" = #{personId} and \"serviceID\" = #{serviceId} and date = #{checkDate}\n " +
+            "order by date DESC")
+    LinkedList<Integer> selectLatestArchiveId(@Param("personId") Integer personId,
+                                              @Param("serviceId") Integer serviceId,
+                                              @Param("checkDate") Date checkDate);
 }

@@ -27,6 +27,10 @@ public class userServiceImpl implements userService{
     }
 
     @Override
+    public Admin selectAdmin(Integer userId){
+        return userMapper.selectAdmin(userId);
+    }
+    @Override
     public List<Admin> selectRelative(Integer userId, String keyword){
         return userMapper.selectRelative(userId, keyword);
     }

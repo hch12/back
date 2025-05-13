@@ -9,4 +9,6 @@ public interface indicatorService {
     List<Indicator> selectValueByArchive(Integer id);
     void deleteValueByArchiveID(Integer id);
     void alterValueByArchiveID(Integer indicatorId,Integer id,String value);
+    List<Indicator> selectIndicatorByService(Integer id);
+    void insertValueByArchiveID(Integer id,Integer indicatorId,String value);
 }

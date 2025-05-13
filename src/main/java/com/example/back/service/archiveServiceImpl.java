@@ -5,6 +5,8 @@ import com.example.back.mapper.ArchiveMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -32,5 +34,14 @@ public class archiveServiceImpl implements archiveService{
     @Override
     public void deleteArchiveByID(Integer id){
         archiveMapper.deleteArchiveByID(id);
+    }
+
+    @Override
+    public void insertArchive(Integer personId, Integer serviceId, Date checkDate){
+        archiveMapper.insertArchive(personId,serviceId,checkDate);
+    }
+    @Override
+    public LinkedList<Integer> selectLatestArchiveId(Integer personId, Integer serviceId, Date checkDate){
+        return archiveMapper.selectLatestArchiveId(personId,serviceId,checkDate);
     }
 }

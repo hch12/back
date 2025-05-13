@@ -28,4 +28,12 @@ public class indicatorImpl implements indicatorService{
     public void alterValueByArchiveID(Integer indicatorId,Integer id,String value){
         indicatorMapper.alterValueByArchiveID(indicatorId,id,value);
     }
+    @Override
+    public List<Indicator> selectIndicatorByService(Integer id){
+        return indicatorMapper.selectIndicatorByService(id);
+    }
+    @Override
+    public void insertValueByArchiveID(Integer id,Integer indicatorId,String value){
+        indicatorMapper.insertValueByArchiveID(id,indicatorId,value);
+    }
 }

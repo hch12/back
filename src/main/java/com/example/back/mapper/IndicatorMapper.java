@@ -2,10 +2,7 @@ package com.example.back.mapper;
 
 
 import com.example.back.entity.Indicator;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -28,5 +25,16 @@ public interface IndicatorMapper {
     @Update("UPDATE indicator_archive SET value = #{value} WHERE \"archiveID\" = #{id} AND \"indicatorID\" = #{indicatorId}")
     void alterValueByArchiveID(@Param("indicatorId") Integer indicatorId,
                                @Param("id") Integer id,
+                               @Param("value") String value);
+
+    @Select("SELECT indicator.\"indicatorID\" as id,\"indicatorName\",type,\"dataType\" FROM service_indicator\n" +
+            "join indicator on service_indicator.\"indicatorID\" = indicator.\"indicatorID\"\n" +
+            "where \"serviceID\" = #{id}")
+    List<Indicator> selectIndicatorByService(Integer id);
+
+    @Insert("INSERT INTO indicator_archive (\"archiveID\", \"indicatorID\", value) " +
+            "VALUES (#{id}, #{indicatorId}, #{value})")
+    void insertValueByArchiveID(@Param("id") Integer id,
+                               @Param("indicatorId") Integer indicatorId,
                                @Param("value") String value);
 }

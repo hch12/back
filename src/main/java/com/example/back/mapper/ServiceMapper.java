@@ -1,5 +1,9 @@
 package com.example.back.mapper;
 
+
+import com.example.back.entity.Service;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import com.example.back.entity.ServiceDetail;
 import com.example.back.entity.Service; // 导入 Service 实体，如果 selectServiceBySearch 方法需要的话
 import org.apache.ibatis.annotations.*; // 保留需要的注解，但 @Results, @Select, @Collection 将在 XML 中实现
@@ -12,6 +16,11 @@ public interface ServiceMapper {
     @Select("SELECT * FROM service WHERE \"organizationName\" like concat('%',#{name},'%')")
     List<Service> selectServiceBySearch(String name);
 
+    @Select("SELECT * FROM service " +
+            "WHERE \"organizationName\" = #{orgName} " +
+            "and \"serviceName\" like concat('%',#{keyword},'%')")
+    List<Service> selectServiceByOrg(@Param("keyword") String keyword,
+                                        @Param("orgName") String orgName);
     /**
      * 根据套餐ID查询套餐详细信息
      * 使用 XML Mapping 实现复杂关联查询

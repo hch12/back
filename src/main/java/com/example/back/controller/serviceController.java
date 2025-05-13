@@ -31,10 +31,15 @@ public class serviceController {
         return Result.success(records);
     }
 
+    @GetMapping("/suggest")
+    public Result suggest(@RequestParam String keyword, @RequestParam String orgName) {
+        List<Service> services = serviceService.selectServiceBySearch(keyword, orgName);
+        Record records = new Record(services, services.size());
+        return Result.success(records);
+    }
     @GetMapping("/detail")
-    public Result getServiceDetailById(@RequestParam("id") Integer id) {
+    public Result getServiceDetailById(@RequestParam Integer id) {
         ServiceDetail serviceDetail = serviceService.getServiceDetailById(id);
-
         if (serviceDetail == null) {
             // 如果查询结果为 null，表示该 ID 的套餐不存在
             return Result.error("未找到该套餐信息"); // 返回错误码和信息

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -22,6 +23,17 @@ public class relativeController {
     userService userService;
     @Resource
     archiveService archiveService;
+
+    @GetMapping("/suggest")
+    public Result suggest(@RequestParam String keyword, @RequestParam Integer id){
+        Admin admin = userService.selectAdmin(id);
+        List<Admin> adminList = userService.selectRelative(id, keyword);
+        LinkedList<Admin> admins = new LinkedList<>();
+        admins.add(admin);
+        admins.addAll(adminList);
+        Record records = new Record(admins, admins.size());
+        return Result.success(records);
+    }
 
     @GetMapping("/name-suggest")
     public Result nameSuggest(@RequestParam String keyword, @RequestParam Integer id){
